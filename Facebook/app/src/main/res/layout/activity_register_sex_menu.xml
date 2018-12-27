@@ -59,7 +59,7 @@
             android:layout_weight="1"
             android:gravity="right|center_vertical"
             android:layoutDirection="rtl"
-            android:text="Hombre                                                     " />
+            android:text="Hombre                                                                 " />
 
         <RadioButton
             android:id="@+id/rbMujer"
@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:gravity="right|center_vertical"
             android:layoutDirection="rtl"
-            android:text="Mujer                                                        " />
+            android:text="Mujer                                                                    " />
     </RadioGroup>
 
     <TextView

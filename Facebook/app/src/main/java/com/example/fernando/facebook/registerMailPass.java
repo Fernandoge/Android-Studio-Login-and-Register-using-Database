@@ -23,6 +23,7 @@ public class registerMailPass extends AppCompatActivity {
     EditText et_correo;
     EditText et_pass;
     private TextView tvPasswordStrength;
+    int strengthPoints = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,6 @@ public class registerMailPass extends AppCompatActivity {
         et_correo = (EditText) findViewById(R.id.correo);
         et_pass = (EditText) findViewById(R.id.pass);
         tvPasswordStrength = (TextView) findViewById(R.id.tvPasswordStrength);
-
         // Add password ontext change listener
         et_pass.addTextChangedListener(new TextWatcher() {
             @Override
@@ -52,9 +52,9 @@ public class registerMailPass extends AppCompatActivity {
         });
     }
 
-    private void calculateStrength(String passwordText) {
+    public void calculateStrength(String passwordText) {
         int upperChars = 0, lowerChars = 0, numbers = 0,
-                specialChars = 0, otherChars = 0, strengthPoints = 0;
+                specialChars = 0, otherChars = 0;
         char c;
 
         int passwordLength = passwordText.length();
@@ -132,13 +132,16 @@ public class registerMailPass extends AppCompatActivity {
         SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
         String correo = et_correo.getText().toString();
         String pass = et_pass.getText().toString();
-        if(correo.isEmpty() || pass.isEmpty() || !isValid(correo)) {
+        if(correo.isEmpty() || pass.isEmpty() || !isValid(correo) || strengthPoints <= 3) {
             if (correo.isEmpty())
                 et_correo.setError("Este campo es obligatorio");
+            else if (!isValid(correo))
+                et_correo.setError("El mail ingresado no es valido");
             if (pass.isEmpty())
                 et_pass.setError("Este campo es obligatorio");
-            if (!isValid(correo))
-                et_correo.setError("El mail ingresado no es valido");
+            else if (strengthPoints <= 3){
+                et_pass.setError("La contraseña es muy debil");
+            }
         }
         else {
             Intent j = getIntent();

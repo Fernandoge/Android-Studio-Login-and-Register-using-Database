@@ -17,7 +17,8 @@ public class welcomeMenu extends AppCompatActivity {
         Intent j = getIntent();
         Bundle extras = j.getExtras();
         String nombre = extras.getString("nombreLogin");
-        texto.setText("bienvenido "+nombre);
+        String apellido = extras.getString("apellidoLogin");
+        texto.setText("bienvenido "+nombre+" "+apellido);
     }
 
 

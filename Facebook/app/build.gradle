@@ -27,4 +27,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    api 'com.sun.mail:android-mail:1.5.5'
+    api 'com.sun.mail:android-activation:1.5.5'
+    api 'com.android.support:design:28.0.0'
+
 }

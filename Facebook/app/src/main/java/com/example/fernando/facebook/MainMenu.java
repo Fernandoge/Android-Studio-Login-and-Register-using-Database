@@ -32,18 +32,19 @@ public class MainMenu extends AppCompatActivity {
 
         if(!user.isEmpty()){
             Cursor fila = BaseDeDatabase.rawQuery
-                    ("select usu_nombre from usuario where usu_email ='" + user + "' AND usu_pass ='"+ password +"'", null);
+                    ("select usu_nombre, usu_apellido from usuario where usu_email ='" + user + "' AND usu_pass ='"+ password +"'", null);
 
             if(fila.moveToFirst()){
                 Intent i = new Intent(this, welcomeMenu.class);
                 Bundle extras = new Bundle();
                 extras.putString("nombreLogin",fila.getString(0));
+                extras.putString("apellidoLogin",fila.getString(1));
                 i.putExtras(extras);
                 startActivity(i);
                 BaseDeDatabase.close();
             }
-            else {xh
-                Toast.makeText(this,"email o password inhgfcorrecto", Toast.LENGTH_SHORT).show();
+            else {
+                Toast.makeText(this,"email o password incorrecto", Toast.LENGTH_SHORT).show();
                 BaseDeDatabase.close();
             }
 

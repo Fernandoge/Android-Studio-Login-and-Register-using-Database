@@ -39,8 +39,8 @@ public class lostPassMenu extends AppCompatActivity {
         }
 
         if (rb3.isChecked()) {
-            Toast.makeText(this, "Se envió un correo electrónico", Toast.LENGTH_LONG).show();
-            Intent i = new Intent(this, MainMenu.class);
+            //Toast.makeText(this, "Se envió un correo electrónico", Toast.LENGTH_LONG).show();
+            Intent i = new Intent(this, sendPassMenu.class);
             startActivity(i);
         }
 
