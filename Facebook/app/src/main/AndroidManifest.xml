@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.fernando.facebook">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="FacebookGarciaFuentes"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainMenu">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".welcomeMenu" />
+        <activity
+            android:name=".lostPassMenu"
+            android:label="" />
+        <activity
+            android:name=".registerNameMenu"
+            android:label="Nombre" />
+        <activity
+            android:name=".registerCelMenu"
+            android:label="Número de celular" />
+        <activity
+            android:name=".registerBirthDateMenu"
+            android:label="Fecha de nacimiento" />
+        <activity
+            android:name=".registerSexMenu"
+            android:label="Sexo" />
+        <activity android:name=".registerSuccesfulMenu" />
+        <activity android:name=".registerMailPass" />
+        <activity
+            android:name=".register_mailPass"
+            android:label="@string/title_activity_register_mail_pass"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>

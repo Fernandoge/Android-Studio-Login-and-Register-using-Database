@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Facebook</string>
+    <string name="title_activity_register_mail_pass">register_mailPass</string>
+</resources>
