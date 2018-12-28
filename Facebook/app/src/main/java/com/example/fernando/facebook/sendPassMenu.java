@@ -38,21 +38,25 @@ public class sendPassMenu extends AppCompatActivity {
     }
 
     public void Enviar(View view){
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase BaseDatabase = admin.getWritableDatabase();
-        String mail = para.getText().toString();
-        String pass = "clave";
 
+        int range = 999001;
+        int min = 1000;
+        int codigo = (int) (Math.random() * range) + min;
 
         if (isValid(para.getText().toString())){
-            /* ContentValues registro = new ContentValues();
-            registro.put ("usu_pass",pass);
-            BaseDatabase.update("usuario", registro, "usu_email=" + "'"+ mail + "'", null);
-            BaseDatabase.close(); */
             // Se instancia un objeto de la Clase Email la primera vez con la Session y luego con el cuerpo del mail
-            new Email("pruebaemailusach@gmail.com", "Prueba123",sendPassMenu.this).execute(
-                    new Email.Correo( para.getText().toString(), "Recuperación de contraseña", "Su nueva contraseña es : " + nuevapass)
+            //cambiar user a feisbucrecuperarcontrasena@gmail.com con pass Clave123  si no pruebaemailusach@gmail.com y pass Prueba123
+            new Email("feisbucrecuperarcontrasena", "Clave123",sendPassMenu.this).execute(
+                    new Email.Correo( para.getText().toString(), "Recuperación de contraseña", "El código es : " + codigo)
             );
+
+
+            Intent i = new Intent(this, codeMenu.class);
+            Bundle extras = new Bundle();
+            extras.putInt("codigo",codigo);
+            extras.putString("correo",para.getText().toString());
+            i.putExtras(extras);
+            startActivity(i);
         }
         else
             para.setError("El mail ingresado no es valido");

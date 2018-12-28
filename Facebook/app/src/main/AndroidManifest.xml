@@ -39,7 +39,9 @@
         <activity
             android:name=".sendPassMenu"
             android:label="@string/title_activity_send_pass_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".codeMenu" />
+        <activity android:name=".crearNuevaPassMenu"></activity>
     </application>
 
 </manifest>

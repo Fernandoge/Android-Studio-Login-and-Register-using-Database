@@ -42,6 +42,7 @@ public class MainMenu extends AppCompatActivity {
                 i.putExtras(extras);
                 startActivity(i);
                 BaseDeDatabase.close();
+
             }
             else {
                 Toast.makeText(this,"email o password incorrecto", Toast.LENGTH_SHORT).show();
