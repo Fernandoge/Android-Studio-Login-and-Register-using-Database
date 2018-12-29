@@ -23,7 +23,7 @@ public class registerMailPass extends AppCompatActivity {
     EditText et_correo;
     EditText et_pass;
     private TextView tvPasswordStrength;
-    int strengthPoints = 0;
+    int upperChars = 0, lowerChars = 0, numbers = 0, specialChars = 0, otherChars = 0, strengthPoints = 0, passwordLengthGlobal = 0, seguridad = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +53,11 @@ public class registerMailPass extends AppCompatActivity {
     }
 
     public void calculateStrength(String passwordText) {
-        int upperChars = 0, lowerChars = 0, numbers = 0,
-                specialChars = 0, otherChars = 0;
-        char c;
 
+        char c;
+        upperChars = lowerChars = numbers = specialChars = otherChars = strengthPoints = passwordLengthGlobal = seguridad = 0;
         int passwordLength = passwordText.length();
+        passwordLengthGlobal = passwordLength;
 
         if (passwordLength ==0)
         {
@@ -112,7 +112,7 @@ public class registerMailPass extends AppCompatActivity {
             }
         }
 
-        if (strengthPoints <= 3)
+        if (strengthPoints <= 4)
         {
             tvPasswordStrength.setText("Password Strength : LOW");
             tvPasswordStrength.setBackgroundColor(Color.RED);
@@ -132,15 +132,28 @@ public class registerMailPass extends AppCompatActivity {
         SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
         String correo = et_correo.getText().toString();
         String pass = et_pass.getText().toString();
-        if(correo.isEmpty() || pass.isEmpty() || !isValid(correo) || strengthPoints <= 3) {
+        if(correo.isEmpty() || pass.isEmpty() || !isValid(correo) || (strengthPoints <= 6 && seguridad == 0)) {
             if (correo.isEmpty())
                 et_correo.setError("Este campo es obligatorio");
             else if (!isValid(correo))
                 et_correo.setError("El mail ingresado no es valido");
             if (pass.isEmpty())
                 et_pass.setError("Este campo es obligatorio");
-            else if (strengthPoints <= 3){
-                et_pass.setError("La contraseña es muy debil");
+            else if (strengthPoints <= 6) {
+                if (strengthPoints > 4) {
+                    Toast.makeText(this, "La contraseña ingresada no es muy segura, presione el boton nuevamente para omitir la restricción", Toast.LENGTH_LONG).show();
+                    seguridad = 1;
+                }
+                if (passwordLengthGlobal <= 10)
+                    et_pass.setError("La contraseña es muy debil, se recomienda una clave con más de 10 caracteres");
+                else if (upperChars == 0)
+                    et_pass.setError("La contraseña es muy debil, se recomienda el uso de letras mayúsculas");
+                else if (lowerChars == 0)
+                    et_pass.setError("La contraseña es muy debil, se recomienda el uso de letras minúsculas");
+                else if (numbers == 0)
+                    et_pass.setError("La contraseña es muy debil, se recomienda el uso de numeros");
+                else if (specialChars == 0)
+                    et_pass.setError("La contraseña es muy debil, se recomienda el uso de caracteres especiales como '@' o '_'");
             }
         }
         else {

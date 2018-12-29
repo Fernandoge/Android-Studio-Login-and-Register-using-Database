@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ public class crearNuevaPassMenu extends AppCompatActivity {
 
     EditText et_pass;
     EditText et_confirm_pass;
-    int strengthPoints = 0;
+    int upperChars = 0, lowerChars = 0, numbers = 0, specialChars = 0, otherChars = 0, strengthPoints = 0, passwordLengthGlobal = 0, seguridad = 0;
     private TextView tvPasswordStrength;
 
     @Override
@@ -52,11 +53,11 @@ public class crearNuevaPassMenu extends AppCompatActivity {
 
 
     public void calculateStrength(String passwordText) {
-        int upperChars = 0, lowerChars = 0, numbers = 0,
-                specialChars = 0, otherChars = 0;
-        char c;
 
+        char c;
+        upperChars = lowerChars = numbers = specialChars = otherChars = strengthPoints = passwordLengthGlobal = seguridad = 0;
         int passwordLength = passwordText.length();
+        passwordLengthGlobal = passwordText.length();
 
         if (passwordLength ==0)
         {
@@ -111,7 +112,7 @@ public class crearNuevaPassMenu extends AppCompatActivity {
             }
         }
 
-        if (strengthPoints <= 3)
+        if (strengthPoints <= 4)
         {
             tvPasswordStrength.setText("Password Strength : LOW");
             tvPasswordStrength.setBackgroundColor(Color.RED);
@@ -142,8 +143,22 @@ public class crearNuevaPassMenu extends AppCompatActivity {
 
         }
 
-        else if(strengthPoints <= 3){
-            et_pass.setError("La contraseña es muy debil");
+        else if(strengthPoints <= 6 && seguridad == 0){
+
+            if (strengthPoints > 4) {
+                Toast.makeText(this, "La contraseña ingresada no es muy segura, presione el boton nuevamente para omitir la restricción", Toast.LENGTH_LONG).show();
+                seguridad = 1;
+            }
+            if (passwordLengthGlobal <= 10)
+                et_pass.setError("La contraseña es muy debil, se recomienda una clave con más de 10 caracteres");
+            else if (upperChars == 0)
+                et_pass.setError("La contraseña es muy debil, se recomienda el uso de letras mayúsculas");
+            else if (lowerChars == 0)
+                et_pass.setError("La contraseña es muy debil, se recomienda el uso de letras minúsculas");
+            else if (numbers == 0)
+                et_pass.setError("La contraseña es muy debil, se recomienda el uso de numeros");
+            else if (specialChars == 0)
+                et_pass.setError("La contraseña es muy debil, se recomienda el uso de caracteres especiales como '@' o '_'");
 
         }
         else
@@ -161,7 +176,7 @@ public class crearNuevaPassMenu extends AppCompatActivity {
                 Toast.makeText(this, correo, Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Contraseña cambiada correctamente", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(this, MainMenu.class);
-                //startActivity(i);
+                startActivity(i);
             }
 
             else {

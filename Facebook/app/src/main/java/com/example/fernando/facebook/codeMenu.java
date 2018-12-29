@@ -23,16 +23,19 @@ public class codeMenu extends AppCompatActivity {
         Intent j = getIntent();
         Bundle extras = j.getExtras();
         int codigo = extras.getInt("codigo");
-        int valor_et = Integer.valueOf(et_codigo.getText().toString());
-        if (codigo == valor_et) {
-            Intent i = new Intent(this, crearNuevaPassMenu.class);
-            i.putExtras(extras);
-            startActivity(i);
-        }
+        if ((et_codigo.getText().toString()).isEmpty())
+            et_codigo.setError("Este campo es obligatorio");
         else {
-            Toast.makeText(this, "El codigo ingresado es incorrecto", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this, MainMenu.class);
-            startActivity(i);
+            int valor_et = Integer.valueOf(et_codigo.getText().toString());
+            if (codigo == valor_et) {
+                Intent i = new Intent(this, crearNuevaPassMenu.class);
+                i.putExtras(extras);
+                startActivity(i);
+            } else {
+                Toast.makeText(this, "El codigo ingresado es incorrecto", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, MainMenu.class);
+                startActivity(i);
+            }
         }
     }
 }
